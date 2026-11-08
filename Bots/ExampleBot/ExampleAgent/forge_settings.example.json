@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "agentName": "example-agent",
+  "globals": {
+    "_comment": "Settings that apply to the whole queue.",
+    "metricsEnabled": false,
+    "pruneSourceCheckpoints": false,
+    "render": false
+  },
+  "stages": [
+    {
+      "_comment": "First stage: train ball-chase from scratch to 100M total timesteps.",
+      "stageName": "example-ball-chase",
+      "targetTotalTimesteps": 100000000,
+      "warmStartPolicy": true,
+      "warmStartIterations": 20,
+      "keepRunId": false,
+      "versionIncrement": "minor",
+      "versionOverride": null,
+      "versionNotes": "Initial ball-chase training.",
+      "staticOpponentsEnabled": false,
+      "bootstrap": {
+        "mode": "new",
+        "sourceStage": null,
+        "sourceVersionId": null,
+        "selectedExistingVersionId": null
+      },
+      "createdSegmentId": ""
+    }
+  ]
+}

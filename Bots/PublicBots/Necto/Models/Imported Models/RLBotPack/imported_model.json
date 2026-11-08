@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "folder_name": "RLBotPack",
+  "display_name": "Necto (RLBotPack)",
+  "target_agent": "Necto",
+  "source_type": "external-converted",
+  "source_build": "RLBotPack",
+  "source_stage": null,
+  "source_version_id": "0033a98d",
+  "source_path": "https://github.com/RLBot/RLBotPack/tree/0033a98d4e060670f334f60f7f8dc5ee21ba93bb/RLBotPack/Necto/Necto",
+  "imported_at": "20260726",
+  "notes": "Public Necto policy converted to GPU-portable TorchScript with the original artifact retained for parity tests. Inference and frozen static-opponent use only.",
+  "latest_timesteps": 0,
+  "can_use_for_inference": true,
+  "can_use_for_training_resume": false,
+  "can_use_for_training_warm_start": false,
+  "files": {
+    "policy": false,
+    "shared_head": false,
+    "critic": false,
+    "aux_critic": false,
+    "policy_optim": false,
+    "shared_head_optim": false,
+    "critic_optim": false,
+    "aux_critic_optim": false,
+    "running_stats": false
+  }
+}

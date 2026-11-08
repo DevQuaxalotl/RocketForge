@@ -1,0 +1,27 @@
+# A preset or -D override takes precedence over the checked-in build selection.
+if(NOT DEFINED RLBOT_DEVICE)
+    if(NOT EXISTS "${DEVICE_FILE}")
+        message(FATAL_ERROR "Set rlbot/device.txt to cpu or gpu, or configure with -DRLBOT_DEVICE=cpu or gpu.")
+    endif()
+    file(READ "${DEVICE_FILE}" RLBOT_DEVICE)
+    string(STRIP "${RLBOT_DEVICE}" RLBOT_DEVICE)
+endif()
+
+if(NOT RLBOT_DEVICE MATCHES "^(cpu|gpu)$")
+    message(FATAL_ERROR "RLBOT_DEVICE / rlbot/device.txt must be cpu or gpu.")
+endif()
+
+if(DEFINED OUTPUT_FILE)
+    file(WRITE "${OUTPUT_FILE}" "${RLBOT_DEVICE}\n")
+endif()
+
+if(RLBOT_DEVICE STREQUAL "gpu")
+    if(NOT WIN32 AND NOT CMAKE_SCRIPT_MODE_FILE)
+        message(FATAL_ERROR "GPU submission builds support Windows. Select cpu for Linux.")
+    endif()
+    set(RLBOT_USE_GPU ON)
+    set(RLBOT_CORE_NAME RLBotCoreCUDA)
+else()
+    set(RLBOT_USE_GPU OFF)
+    set(RLBOT_CORE_NAME RLBotCoreCPU)
+endif()

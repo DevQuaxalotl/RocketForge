@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "engine": "torchscript",
+  "artifact": "necto-model.pt",
+  "sha256": "93a546e17c5fb9c3cf5064c8aea4fac693b31bf9ca4fe3b18f813a1af7f3f5b3",
+  "original_artifact": "necto-model-original.pt",
+  "original_sha256": "137f94924afb0402af7ae9f12b7f2d7e47adff962afad4dbed7bf864c34c542b",
+  "source_repository": "https://github.com/RLBot/RLBotPack",
+  "source_commit": "0033a98d4e060670f334f60f7f8dc5ee21ba93bb",
+  "source_path": "RLBotPack/Necto/Necto/necto-model.pt",
+  "conversion": "Published weights copied into a GPU-portable scripted attention policy with boolean padding masks and unused attention-weight output disabled",
+  "license": "CC-BY-NC-SA-4.0"
+}

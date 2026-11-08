@@ -1,0 +1,37 @@
+# ── Build artifacts ───────────────────────────────────────────────────────────
+# The out/ tree can be several GB of Windows build output — always exclude.
+# The image rebuilds from source inside the container.
+out/
+
+# ── Git history ───────────────────────────────────────────────────────────────
+# Match the root repo AND nested clones. A bare ".git/" only matches the context root.
+**/.git
+
+# ── Training checkpoints ──────────────────────────────────────────────────────
+# Bots/ contains agent source code needed for the build — do NOT exclude it.
+# Only exclude Models/ subdirectories (*.pt checkpoint files): these are large,
+# change constantly, and should be mounted as a volume at runtime so they persist
+# across container restarts.
+#
+#   docker run -v /host/Bots:/workspace/RocketForge/Bots rocketforge ...
+#
+# NOTE: .dockerignore supports ** so this matches Models/ under any bot.
+Bots/**/Models/
+
+# Setup-hash goldens recorded from this machine's Models/, which the image doesn't have.
+ForgeTrainingTests/fixtures/local/
+
+# ── W&B local run metadata ────────────────────────────────────────────────────
+wandb/
+
+# ── IDE / tooling ─────────────────────────────────────────────────────────────
+.vs/
+.claude/
+*.user
+*.suo
+docs/
+
+# ── Windows build cache files ─────────────────────────────────────────────────
+*.obj
+*.pdb
+*.ilk

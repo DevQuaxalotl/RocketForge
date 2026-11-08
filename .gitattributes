@@ -1,0 +1,13 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Shell scripts must stay LF even in a Windows working tree — they are COPYied
+# into the Linux training image as-is, and a CRLF shebang breaks the entrypoint
+# (/usr/bin/env: 'bash\r': No such file or directory).
+*.sh text eol=lf
+
+# The Bob submittal Dockerfile embeds a shell script that runs in Linux.
+ForgeTraining/templates/submittal/cpp.Dockerfile text eol=lf
+
+# Public inference policies are intentionally versioned binary artifacts.
+Bots/PublicBots/**/*.pt binary

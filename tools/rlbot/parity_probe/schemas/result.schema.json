@@ -1,0 +1,228 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "result.schema.json",
+  "title": "RocketForge parity probe frame result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "producer",
+    "fixture_id",
+    "sequence_id",
+    "frame_id",
+    "target_car_id",
+    "obs_rng_seed",
+    "observation",
+    "action_mask",
+    "network",
+    "parsed_action",
+    "action_plan",
+    "runtime"
+  ],
+  "properties": {
+    "schema": {
+      "const": "rocketforge.parity.result.v1"
+    },
+    "producer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fixture_id": {
+      "$ref": "#/$defs/id"
+    },
+    "sequence_id": {
+      "$ref": "#/$defs/id"
+    },
+    "frame_id": {
+      "$ref": "#/$defs/id"
+    },
+    "target_car_id": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295
+    },
+    "obs_rng_seed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615
+    },
+    "observation": {
+      "$ref": "#/$defs/float_vector"
+    },
+    "action_mask": {
+      "$ref": "#/$defs/action_mask"
+    },
+    "network": {
+      "$ref": "#/$defs/network"
+    },
+    "parsed_action": {
+      "$ref": "#/$defs/action"
+    },
+    "action_plan": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/action_plan_segment"
+      }
+    },
+    "runtime": {
+      "$ref": "#/$defs/runtime"
+    }
+  },
+  "$defs": {
+    "id": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "integer"
+        }
+      ]
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "float_vector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "size",
+        "float32_le_sha256",
+        "values"
+      ],
+      "properties": {
+        "size": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "float32_le_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "action_mask": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "size",
+        "bits",
+        "sha256"
+      ],
+      "properties": {
+        "size": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "bits": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "enum": [0, 1]
+          }
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "action": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {
+        "type": "number"
+      }
+    },
+    "action_plan_segment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action",
+        "ticks"
+      ],
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/action"
+        },
+        "ticks": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "network": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "shared_features",
+        "raw_logits",
+        "masked_logits",
+        "argmax_action_id",
+        "top1_margin"
+      ],
+      "properties": {
+        "shared_features": {
+          "$ref": "#/$defs/float_vector"
+        },
+        "raw_logits": {
+          "$ref": "#/$defs/float_vector"
+        },
+        "masked_logits": {
+          "$ref": "#/$defs/float_vector"
+        },
+        "argmax_action_id": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "top1_margin": {
+          "type": "number"
+        }
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "selected_action_id",
+        "tick_skip",
+        "action_delay",
+        "action_ticks",
+        "queued_action",
+        "applied_action"
+      ],
+      "properties": {
+        "selected_action_id": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tick_skip": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "action_delay": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "action_ticks": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "queued_action": {
+          "$ref": "#/$defs/action"
+        },
+        "applied_action": {
+          "$ref": "#/$defs/action"
+        }
+      }
+    }
+  }
+}

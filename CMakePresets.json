@@ -1,0 +1,138 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 23,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_CXX_STANDARD": "20",
+        "CMAKE_CUDA_STANDARD": "17",
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+    {
+      "name": "base-windows",
+      "hidden": true,
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_CUDA_COMPILER": "$env{CUDA_PATH_V12_6}/bin/nvcc.exe"
+      }
+    },
+    {
+      "name": "forge",
+      "displayName": "RocketForge (console, GUI, tests)",
+      "inherits": "base-windows",
+      "cacheVariables": {
+        "BUILD_GUI": "AUTO",
+        "ROCKETFORGE_BUILD_TESTS": "ON"
+      }
+    },
+    {
+      "name": "rlbot",
+      "displayName": "RLBot",
+      "inherits": "base-windows",
+      "cacheVariables": {
+        "RLBOT": "ON"
+      }
+    },
+    {
+      "name": "forge-console-linux",
+      "displayName": "Console (Linux)",
+      "inherits": "base",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "cacheVariables": {
+        "LIBTORCH_ROOT": "/opt/libtorch",
+        "CMAKE_PREFIX_PATH": "/opt/libtorch",
+        "BUILD_GUI": "OFF",
+        "RLBOT": "OFF",
+        "CMAKE_POSITION_INDEPENDENT_CODE": "ON",
+        "CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/out/build/${presetName}/bin"
+      }
+    }
+  ],
+
+  "buildPresets": [
+    {
+      "name": "build-all",
+      "displayName": "Everything",
+      "configurePreset": "forge"
+    },
+    {
+      "name": "build-console",
+      "displayName": "Console",
+      "configurePreset": "forge",
+      "targets": [
+        "ForgeConsoleTrainer"
+      ]
+    },
+    {
+      "name": "build-gui",
+      "displayName": "GUI + Console",
+      "configurePreset": "forge",
+      "targets": [
+        "ForgeGUI",
+        "ForgeConsoleTrainer"
+      ]
+    },
+    {
+      "name": "build-tests",
+      "displayName": "Tests",
+      "configurePreset": "forge",
+      "targets": [
+        "ForgeTrainingTests"
+      ]
+    },
+    {
+      "name": "build-parity",
+      "displayName": "Agent Parity Probe",
+      "configurePreset": "forge",
+      "targets": [
+        "RocketForgeParityProbe"
+      ]
+    },
+    {
+      "name": "build-rlbot",
+      "displayName": "RLBot",
+      "configurePreset": "rlbot"
+    },
+    {
+      "name": "build-rlbot-all-agents",
+      "displayName": "RLBot, copied into every agent",
+      "configurePreset": "rlbot",
+      "targets": [
+        "RLBot",
+        "RLBotPackageAllAgents"
+      ]
+    },
+    {
+      "name": "build-console-linux",
+      "displayName": "Console (Linux)",
+      "configurePreset": "forge-console-linux"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "tests",
+      "displayName": "Tests",
+      "configurePreset": "forge",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "jobs": 12,
+        "noTestsAction": "error"
+      }
+    }
+  ]
+}

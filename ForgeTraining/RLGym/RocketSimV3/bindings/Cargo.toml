@@ -1,0 +1,24 @@
+[package]
+name = "rocketsim_ffi"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+license = "MIT"
+description = "Standalone C interface to the public RocketSim v3 API"
+
+[workspace]
+
+[lib]
+crate-type = ["staticlib", "rlib"]
+
+[dependencies]
+rocketsim = { path = "../upstream/rocketsim" }
+glam = "=0.33.5"
+
+[build-dependencies]
+cbindgen = "0.29"
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "unwind"

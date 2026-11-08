@@ -1,0 +1,124 @@
+# CMake
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+CMakeSettings.json
+
+# Ninja
+.ninja*
+build.ninja
+
+# Build-related
+RocketSim.Dir/
+/ForgeTraining/RLGym/RocketSimV3/target/
+build/
+# Build scripts, not build output.
+!/tools/build/
+x86/
+x64/
+Release/
+Debug
+# Debug (above) ignores MSVC build-output dirs, but also unintentionally matches
+# the ForgeGUI Debug-tab source directory. Keep that source tracked.
+!ForgeGUI/src/Debug/
+!ForgeGUI/src/Debug/**
+out/
+*.obj
+*.lib
+*.exe
+*.pdb
+*.ilk
+*.tmp
+*.pyd
+*.whl
+
+# Raw binary files
+*.bin
+
+# Visual Studio (not using anything VS-related)
+.vs/
+*.vcxproj
+*.sln
+*.filters
+*.user
+
+# Rider
+/.idea
+
+# Anything starting with three underscores
+___*
+
+# ML model files or checkpoints
+*.pt
+*.PT
+/checkpoints
+/models
+
+# Python cache files
+*.pyc
+
+# Don't include libtorch if in local dir
+libtorch
+*.lt
+
+# Include RocketSimVis obj's 
+!/ForgeTraining/ForgeDebugger/RocketSimVis/data/*
+
+# Ignore bots other than ExampleBot
+Bots/*/
+!Bots/ExampleBot
+!Bots/ExampleBot/**
+!Bots/PublicBots
+!Bots/PublicBots/**
+!Bots/PublicBots/**/*.pt
+/Bots/ExampleBot/ExampleAgent/Models
+# DLLs never belong beside an exported RLBot.exe; keep stray build outputs out of the tracked ExampleBot tree.
+# Must follow the ExampleBot negation above to take effect there.
+Bots/*/*/rlbot/*.dll
+
+# Local model catalogs and checkpoint fingerprint caches
+.rocketforge/
+
+# Reward analysis output, written beside the analyzed model
+reward_analysis_*.json
+
+# wandb metadata
+/wandb
+
+# Claude files
+/.claude
+CLAUDE.md
+/docs
+/.worktrees
+.superpowers/
+
+# RocketForge user settings
+**/forge_settings.json
+**/forge_debug_settings.json
+forge_app_state.json
+forge_model_benchmark_settings.json
+
+*.exe
+/Model Benchmarks
+/Wandb Logs
+
+# Local parity adapters, manifests, and private source mappings
+/tools/rlbot/parity_probe/local/
+/tools/rlbot/parity_probe/*.local.json
+/Private
+/RLBot/Bots
+/tools/replay_sequences
+
+# Local RLBot callback recordings
+*.rfcapture
+
+# Machine-local setup-hash goldens covering private bots
+/ForgeTrainingTests/fixtures/local/

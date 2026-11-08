@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "engine": "torchscript",
+  "artifact": "nexto-model.pt",
+  "sha256": "73a13af7b82f793b0946bea105f262b9fb628b51197b958301e512c84b546b6f",
+  "original_artifact": "nexto-model-original.pt",
+  "original_sha256": "bf5343b5eeacac6bf7cdb75dac4a5c14ba0f94d820eae75f00a211b6119d69fa",
+  "source_repository": "https://github.com/RLBot/RLBotPack",
+  "source_commit": "0033a98d4e060670f334f60f7f8dc5ee21ba93bb",
+  "source_path": "RLBotPack/Necto/Nexto/nexto-model.pt",
+  "conversion": "Published weights copied into a GPU-portable scripted attention policy with boolean padding masks and unused attention-weight output disabled",
+  "license": "CC-BY-NC-SA-4.0"
+}

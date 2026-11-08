@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "engine": "torchscript",
+  "artifact": "element-model.pt",
+  "sha256": "e11b44d05f92ff865afe161a7ce978692fd9fb00fa47e2d558807751f1b2b4ad",
+  "source_repository": "https://github.com/RLBot/RLBotPack",
+  "source_commit": "0033a98d4e060670f334f60f7f8dc5ee21ba93bb",
+  "source_path": "RLBotPack/Element/model.p",
+  "source_sha256": "b3b4a68fce47f3096b4088ce31cd359161539131a3afde8f206cb067254431f2",
+  "conversion": "Element factorized actor converted from Python pickle to a scripted joint-logit policy",
+  "license": "MIT"
+}

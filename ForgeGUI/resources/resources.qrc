@@ -1,0 +1,13 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/">
+        <file>theme.qss</file>
+        <file>icons/check.svg</file>
+        <file>icons/check-dark.svg</file>
+        <file>icons/check-disabled.svg</file>
+        <file>icons/chevron-up.svg</file>
+        <file>icons/chevron-up-disabled.svg</file>
+        <file>icons/chevron-down.svg</file>
+        <file>icons/chevron-down-disabled.svg</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,862 @@
+/*
+ * RocketForge dark theme.
+ *
+ * Applied application-wide, so every window and dialog shares it.
+ *
+ * QSS has no variables, so colors are written out literally. Keep them as 6-digit
+ * hex: ForgeGUI::ApplyColorPreference (ThemeUtils.h) rewrites the accent values below
+ * to neutral text when the user turns colors off, and it matches on exact hex.
+ * Painted widgets use the same values through ForgeGUI::Theme in ThemeUtils.h.
+ *
+ * Surfaces                            Text
+ *   #151819  menu / status bar          #d8d0bf  primary
+ *   #1d2223  window / panel             #cfc5b2  secondary (labels, checkboxes)
+ *   #202526  sunken / disabled          #bdb49f  inactive tab
+ *   #242a2b  control                    #948c7c  muted (hints, captions)
+ *   #2c3436  control hover              #6f746f  disabled
+ *   #303839  border / divider           #ffffff  on selection
+ *
+ * Brand                               Accents (one per section; neutralized when colors are off)
+ *   #2b747a  selection / active tab     #e47777  red      (#ff7d7d bright red)
+ *   #62c6cc  focus / hover              #d98bbd  pink
+ *   #d8c990  gold frame                 #b78bd9  purple
+ *   #e7d9a6  gold title / hover         #b9cf45  lime
+ *                                       #73c88f  green
+ *                                       #62c6cc  cyan
+ *                                       #5aa9c4  blue
+ *                                       #e2a84b  amber
+ */
+
+/* ===========================================================================
+ * Base
+ * ======================================================================== */
+
+QWidget {
+    color: #d8d0bf;
+    font-family: "Cascadia Mono", "Consolas", "Courier New", monospace;
+    font-size: 9pt;
+    selection-background-color: #2b747a;
+    selection-color: #ffffff;
+}
+
+QMainWindow,
+QDialog,
+RewardVisualizerWindow,
+TrainingSetupWindow,
+QWidget#centralwidget,
+QWidget#leftPane,
+QWidget#rightPane,
+QWidget#metricsRowsWidget,
+QTabWidget#modelBenchmarkWorkflowTabs::pane,
+QWidget#modelBenchmarkRunPage,
+QWidget#modelBenchmarkWorkspace,
+QWidget#modelBenchmarkSetupContainer,
+QWidget#modelBenchmarkResultsContainer,
+QWidget#modelBenchmarkSavedResultsPage,
+TrainingQueueWidget#trainingQueueWidget,
+QGroupBox#queueGroup QScrollArea,
+QScrollArea#queueScrollArea,
+QScrollArea#queueScrollArea > QWidget {
+    background-color: #1d2223;
+}
+
+QMenuBar, QStatusBar {
+    background-color: #151819;
+    color: #d8d0bf;
+}
+
+QStatusBar QLabel {
+    color: #d8d0bf;
+}
+
+QMenu {
+    background-color: #202526;
+    border: 1px solid #d8c990;
+    padding: 4px 0;
+}
+
+QMenu::item {
+    padding: 4px 16px;
+}
+
+QMenu::item:selected {
+    background-color: #2b747a;
+    color: #ffffff;
+}
+
+QMenu::separator {
+    background-color: #303839;
+    height: 1px;
+    margin: 4px 8px;
+}
+
+QToolTip {
+    background-color: #151819;
+    border: 1px solid #d8c990;
+    color: #d8d0bf;
+    padding: 4px;
+}
+
+QLabel {
+    color: #cfc5b2;
+}
+
+/* Set via ForgeGUI::TextRoleProperty. */
+QLabel[textRole="muted"] {
+    color: #948c7c;
+}
+
+QLabel[textRole="caption"] {
+    color: #948c7c;
+    font-size: 8pt;
+    padding: 2px 0;
+}
+
+/* ===========================================================================
+ * Tabs
+ * ======================================================================== */
+
+QTabBar::tab {
+    background-color: #202526;
+    border: 1px solid #343b3c;
+    border-bottom-color: #d8c990;
+    color: #bdb49f;
+    padding: 6px 12px;
+    margin-right: 2px;
+}
+
+QTabBar::tab:hover:!selected {
+    background-color: #293032;
+    color: #e7d9a6;
+}
+
+QTabBar::tab:selected {
+    background-color: #2b747a;
+    border-color: #e7d9a6;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* ===========================================================================
+ * Group boxes
+ * ======================================================================== */
+
+QGroupBox {
+    background-color: #1d2223;
+    border: 1px solid #d8c990;
+    border-radius: 4px;
+    margin-top: 10px;
+    padding-top: 14px;
+}
+
+QGroupBox::title {
+    background-color: #1d2223;
+    color: #e7d9a6;
+    font-weight: 600;
+    left: 10px;
+    padding: 0 8px;
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    top: 5px;
+}
+
+/* ===========================================================================
+ * Buttons
+ * ======================================================================== */
+
+QPushButton, QToolButton {
+    background-color: #242a2b;
+    border: 1px solid #3a4547;
+    border-radius: 4px;
+    color: #d8d0bf;
+    padding: 4px 10px;
+}
+
+QPushButton:hover, QToolButton:hover {
+    background-color: #2c3436;
+    border-color: #62c6cc;
+    color: #ffffff;
+}
+
+QPushButton:pressed, QToolButton:pressed {
+    background-color: #263f42;
+}
+
+QPushButton:disabled, QToolButton:disabled {
+    background-color: #202526;
+    border-color: #2f3637;
+    color: #6f746f;
+}
+
+/* Benchmark workflow actions keep the standard button geometry. */
+QPushButton#benchmarkTestSetupButton:enabled,
+QPushButton#benchmarkAddModelsButton:enabled,
+QPushButton#benchmarkRunButton:enabled {
+    background-color: #2b747a;
+    border-color: #62c6cc;
+    color: #ffffff;
+}
+
+QPushButton#benchmarkTestSetupButton:enabled:hover,
+QPushButton#benchmarkAddModelsButton:enabled:hover,
+QPushButton#benchmarkRunButton:enabled:hover {
+    background-color: #33878d;
+}
+
+QPushButton#benchmarkTestSetupButton:enabled:pressed,
+QPushButton#benchmarkAddModelsButton:enabled:pressed,
+QPushButton#benchmarkRunButton:enabled:pressed {
+    background-color: #263f42;
+}
+
+/* Square glyph buttons: queue row controls and the target-timesteps steppers. */
+QToolButton#rowSettingsButton,
+QPushButton#rowMoveUpButton,
+QPushButton#rowMoveDownButton,
+QPushButton#rowDeleteButton,
+QToolButton#targetTimestepsStepUpButton,
+QToolButton#targetTimestepsStepDownButton {
+    font-size: 10pt;
+    font-weight: 700;
+    padding: 0;
+}
+
+QToolButton#rowSettingsButton,
+QPushButton#rowMoveUpButton,
+QPushButton#rowMoveDownButton,
+QPushButton#rowDeleteButton {
+    max-height: 24px;
+    max-width: 24px;
+    min-height: 24px;
+    min-width: 24px;
+}
+
+QToolButton#rowSettingsButton {
+    qproperty-iconSize: 16px 16px;
+}
+
+QToolButton#targetTimestepsStepUpButton,
+QToolButton#targetTimestepsStepDownButton {
+    max-height: 22px;
+    max-width: 22px;
+    min-height: 22px;
+    min-width: 22px;
+    qproperty-iconSize: 15px 15px;
+}
+
+/* ===========================================================================
+ * Inputs
+ * ======================================================================== */
+
+QComboBox, QAbstractSpinBox, QLineEdit {
+    background-color: #242a2b;
+    border: 1px solid #384244;
+    border-radius: 4px;
+    color: #d8d0bf;
+    padding: 3px 8px;
+}
+
+QComboBox:hover, QAbstractSpinBox:hover, QLineEdit:hover {
+    border-color: #62c6cc;
+}
+
+QComboBox:disabled, QAbstractSpinBox:disabled, QLineEdit:disabled {
+    background-color: #202526;
+    color: #6f746f;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #202526;
+    border: 1px solid #d8c990;
+    color: #d8d0bf;
+    selection-background-color: #2b747a;
+}
+
+QComboBox::drop-down {
+    border: none;
+    width: 18px;
+}
+
+QComboBox::down-arrow {
+    image: url(:/icons/chevron-down.svg);
+}
+
+QComboBox::down-arrow:disabled {
+    image: url(:/icons/chevron-down-disabled.svg);
+}
+
+QAbstractSpinBox::up-button,
+QAbstractSpinBox::down-button {
+    background-color: transparent;
+    border: none;
+    border-left: 1px solid #384244;
+    subcontrol-origin: border;
+    width: 16px;
+}
+
+QAbstractSpinBox::up-button {
+    border-top-right-radius: 4px;
+    subcontrol-position: top right;
+}
+
+QAbstractSpinBox::down-button {
+    border-bottom-right-radius: 4px;
+    subcontrol-position: bottom right;
+}
+
+QAbstractSpinBox::up-button:hover,
+QAbstractSpinBox::down-button:hover {
+    background-color: #2c3436;
+}
+
+QAbstractSpinBox::up-arrow {
+    image: url(:/icons/chevron-up.svg);
+}
+
+QAbstractSpinBox::down-arrow {
+    image: url(:/icons/chevron-down.svg);
+}
+
+/* :off is the arrow at the end of the range. */
+QAbstractSpinBox::up-arrow:disabled,
+QAbstractSpinBox::up-arrow:off {
+    image: url(:/icons/chevron-up-disabled.svg);
+}
+
+QAbstractSpinBox::down-arrow:disabled,
+QAbstractSpinBox::down-arrow:off {
+    image: url(:/icons/chevron-down-disabled.svg);
+}
+
+/* ===========================================================================
+ * Check boxes & radio buttons
+ * ======================================================================== */
+
+QCheckBox, QRadioButton {
+    color: #cfc5b2;
+    spacing: 7px;
+}
+
+QCheckBox::indicator,
+QTableView::indicator,
+QTreeView::indicator {
+    background-color: #202526;
+    border: 1px solid #464f50;
+    border-radius: 4px;
+    height: 16px;
+    width: 16px;
+}
+
+QCheckBox::indicator:checked,
+QTableView::indicator:checked,
+QTreeView::indicator:checked {
+    background-color: #2b747a;
+    border-color: #62c6cc;
+    image: url(:/icons/check.svg);
+}
+
+QCheckBox::indicator:disabled,
+QTableView::indicator:disabled,
+QTreeView::indicator:disabled {
+    background-color: #202526;
+    border-color: #333a3b;
+}
+
+QCheckBox::indicator:checked:disabled,
+QTableView::indicator:checked:disabled,
+QTreeView::indicator:checked:disabled {
+    image: url(:/icons/check-disabled.svg);
+}
+
+QRadioButton::indicator {
+    background-color: #202526;
+    border: 1px solid #6f746f;
+    border-radius: 8px;
+    height: 16px;
+    width: 16px;
+}
+
+QRadioButton::indicator:checked {
+    background-color: #62c6cc;
+    border-color: #62c6cc;
+}
+
+/* ===========================================================================
+ * Containers
+ * ======================================================================== */
+
+QScrollArea, QPlainTextEdit, QTableView, QTreeView,
+TrainingStageRowWidget {
+    background-color: #1d2223;
+    border: 1px solid #303839;
+    border-radius: 4px;
+}
+
+QTableView, QTreeView {
+    alternate-background-color: #202526;
+    gridline-color: #303839;
+    outline: 0;
+}
+
+QHeaderView {
+    background-color: #202526;
+}
+
+QHeaderView::section,
+QTableCornerButton::section {
+    background-color: #202526;
+    border: none;
+    border-bottom: 1px solid #303839;
+    border-right: 1px solid #303839;
+    color: #e7d9a6;
+    font-weight: 600;
+    padding: 3px 4px;
+}
+
+QHeaderView::section:hover {
+    background-color: #293032;
+}
+
+/* Row numbers stay quiet so the column titles read as the headers. */
+QHeaderView::section:vertical {
+    color: #948c7c;
+    font-weight: 400;
+    padding: 0 6px;
+}
+
+QProgressBar {
+    background-color: #202526;
+    border: 1px solid #303839;
+    border-radius: 3px;
+    color: #d8d0bf;
+    text-align: center;
+}
+
+QProgressBar::chunk {
+    background-color: #2b747a;
+    border-radius: 2px;
+}
+
+QPlainTextEdit#logEdit {
+    background-color: #252728;
+    border-color: #3a4041;
+    padding: 6px;
+}
+
+QSplitter::handle {
+    background-color: #303839;
+    margin: 12px 1px;
+}
+
+QSplitter::handle:hover {
+    background-color: #62c6cc;
+}
+
+/* ===========================================================================
+ * Scroll bars
+ * ======================================================================== */
+
+QScrollBar:vertical, QScrollBar:horizontal {
+    background-color: #1d2223;
+    border: none;
+    margin: 0;
+}
+
+QScrollBar::handle:vertical, QScrollBar::handle:horizontal {
+    background-color: #4b5658;
+    border-radius: 4px;
+    min-height: 28px;
+    min-width: 28px;
+}
+
+QScrollBar::handle:vertical:hover, QScrollBar::handle:horizontal:hover {
+    background-color: #62c6cc;
+}
+
+QScrollBar::add-line, QScrollBar::sub-line {
+    height: 0;
+    width: 0;
+}
+
+QScrollBar::add-page, QScrollBar::sub-page {
+    background: none;
+}
+
+/* The training queue gets a wider gold bar so long queues are easy to grab. */
+QScrollArea#queueScrollArea QScrollBar:vertical {
+    background-color: #101415;
+    border: 1px solid #3a3424;
+    border-radius: 5px;
+    margin: 0;
+    width: 14px;
+}
+
+QScrollArea#queueScrollArea QScrollBar::handle:vertical {
+    background-color: #d8c990;
+    border: 1px solid #f0e4ad;
+    border-radius: 5px;
+    min-height: 36px;
+}
+
+QScrollArea#queueScrollArea QScrollBar::handle:vertical:hover {
+    background-color: #e7d9a6;
+}
+
+/* ===========================================================================
+ * Section accents
+ *
+ * Each group box owns one accent color, applied to its title, its value labels,
+ * its selected/checked controls, and its control hover borders.
+ * Accent-filled check boxes use the dark check so it stays visible on the bright fill.
+ * ======================================================================== */
+
+/* --- Workspace (red) ---------------------------------------------------- */
+
+QGroupBox#workspaceGroup::title {
+    color: #e47777;
+}
+
+QGroupBox#workspaceGroup QComboBox,
+QGroupBox#workspaceGroup QComboBox:disabled {
+    color: #ff7d7d;
+    font-weight: 600;
+}
+
+QGroupBox#workspaceGroup QComboBox:hover,
+QGroupBox#workspaceGroup QPushButton:hover {
+    border-color: #e47777;
+}
+
+/* --- Options (pink) ----------------------------------------------------- */
+
+QGroupBox#optionsGroup::title {
+    color: #d98bbd;
+}
+
+QGroupBox#optionsGroup QCheckBox:checked,
+QGroupBox#optionsGroup QCheckBox:checked:disabled {
+    color: #d98bbd;
+    font-weight: 600;
+}
+
+QGroupBox#optionsGroup QCheckBox::indicator:checked,
+QGroupBox#optionsGroup QCheckBox::indicator:checked:disabled {
+    background-color: #d98bbd;
+    border-color: #d98bbd;
+    image: url(:/icons/check-dark.svg);
+}
+
+QGroupBox#optionsGroup QCheckBox::indicator:hover:!checked {
+    background-color: #2a242b;
+    border-color: #d98bbd;
+}
+
+/* --- Training queue (purple) -------------------------------------------- */
+
+QGroupBox#queueGroup::title {
+    color: #b78bd9;
+}
+
+QGroupBox#queueGroup QComboBox {
+    color: #b78bd9;
+    font-weight: 600;
+}
+
+QAbstractSpinBox#targetTimestepsSpin,
+QAbstractSpinBox#targetTimestepsSpin:disabled {
+    color: #b78bd9;
+    font-weight: 600;
+}
+
+QGroupBox#queueGroup QComboBox:hover,
+QGroupBox#queueGroup QAbstractSpinBox:hover,
+QGroupBox#queueGroup QLineEdit:hover,
+QGroupBox#queueGroup QPushButton:hover,
+QGroupBox#queueGroup QToolButton:hover {
+    border-color: #b78bd9;
+}
+
+/* --- Stage dialog: bootstrap (cyan) ------------------------------------- */
+
+QGroupBox#stageBootstrapGroup::title {
+    color: #62c6cc;
+}
+
+QGroupBox#stageBootstrapGroup QComboBox,
+QGroupBox#stageBootstrapGroup QRadioButton:checked {
+    color: #62c6cc;
+    font-weight: 600;
+}
+
+QGroupBox#stageBootstrapGroup QRadioButton::indicator:checked {
+    background-color: #62c6cc;
+    border-color: #62c6cc;
+}
+
+QGroupBox#stageBootstrapGroup QComboBox:hover,
+QGroupBox#stageBootstrapGroup QAbstractSpinBox:hover,
+QGroupBox#stageBootstrapGroup QLineEdit:hover,
+QGroupBox#stageBootstrapGroup QPushButton:hover,
+QGroupBox#stageBootstrapGroup QToolButton:hover {
+    border-color: #62c6cc;
+}
+
+QGroupBox#stageBootstrapGroup QRadioButton::indicator:hover:!checked {
+    background-color: #213136;
+    border-color: #62c6cc;
+}
+
+QGroupBox#stageBootstrapGroup QComboBox QAbstractItemView {
+    selection-background-color: #213d44;
+    selection-color: #62c6cc;
+}
+
+/* --- Stage dialog: version (blue) --------------------------------------- */
+
+QGroupBox#stageVersionGroup::title {
+    color: #5aa9c4;
+}
+
+QGroupBox#stageVersionGroup QComboBox,
+QGroupBox#stageVersionGroup QRadioButton:checked {
+    color: #5aa9c4;
+    font-weight: 600;
+}
+
+QGroupBox#stageVersionGroup QRadioButton::indicator:checked {
+    background-color: #5aa9c4;
+    border-color: #5aa9c4;
+}
+
+QGroupBox#stageVersionGroup QComboBox:hover,
+QGroupBox#stageVersionGroup QAbstractSpinBox:hover,
+QGroupBox#stageVersionGroup QLineEdit:hover,
+QGroupBox#stageVersionGroup QPushButton:hover,
+QGroupBox#stageVersionGroup QToolButton:hover {
+    border-color: #5aa9c4;
+}
+
+QGroupBox#stageVersionGroup QRadioButton::indicator:hover:!checked,
+QGroupBox#stageVersionGroup QCheckBox::indicator:hover:!checked {
+    background-color: #202d33;
+    border-color: #5aa9c4;
+}
+
+QGroupBox#stageVersionGroup QComboBox QAbstractItemView {
+    selection-background-color: #1f3540;
+    selection-color: #5aa9c4;
+}
+
+/* --- Stage dialog: warm start (green) ----------------------------------- */
+
+QGroupBox#stageWarmStartGroup::title {
+    color: #73c88f;
+}
+
+QGroupBox#stageWarmStartGroup QComboBox,
+QGroupBox#stageWarmStartGroup QCheckBox:checked {
+    color: #73c88f;
+    font-weight: 600;
+}
+
+QGroupBox#stageWarmStartGroup QCheckBox::indicator:checked {
+    background-color: #73c88f;
+    border-color: #73c88f;
+    image: url(:/icons/check-dark.svg);
+}
+
+QGroupBox#stageWarmStartGroup QComboBox:hover,
+QGroupBox#stageWarmStartGroup QAbstractSpinBox:hover,
+QGroupBox#stageWarmStartGroup QLineEdit:hover,
+QGroupBox#stageWarmStartGroup QPushButton:hover,
+QGroupBox#stageWarmStartGroup QToolButton:hover {
+    border-color: #73c88f;
+}
+
+QGroupBox#stageWarmStartGroup QCheckBox::indicator:hover:!checked {
+    background-color: #223127;
+    border-color: #73c88f;
+}
+
+/* --- Stage dialog: run options (lime) ----------------------------------- */
+
+QGroupBox#stageRunOptionsGroup::title {
+    color: #b9cf45;
+}
+
+QGroupBox#stageRunOptionsGroup QCheckBox:checked {
+    color: #b9cf45;
+    font-weight: 600;
+}
+
+QGroupBox#stageRunOptionsGroup QCheckBox::indicator:checked {
+    background-color: #b9cf45;
+    border-color: #b9cf45;
+    image: url(:/icons/check-dark.svg);
+}
+
+QGroupBox#stageRunOptionsGroup QComboBox:hover,
+QGroupBox#stageRunOptionsGroup QAbstractSpinBox:hover,
+QGroupBox#stageRunOptionsGroup QLineEdit:hover,
+QGroupBox#stageRunOptionsGroup QPushButton:hover,
+QGroupBox#stageRunOptionsGroup QToolButton:hover {
+    border-color: #b9cf45;
+}
+
+QGroupBox#stageRunOptionsGroup QCheckBox::indicator:hover:!checked {
+    background-color: #2f321f;
+    border-color: #b9cf45;
+}
+
+/* --- Skill ratings (lime) ----------------------------------------------- */
+
+QGroupBox#skillRatingsGroup::title {
+    color: #b9cf45;
+}
+
+QLabel#skillRatingNameLabel {
+    color: #cfc5b2;
+    font-weight: 400;
+}
+
+QLabel#skillRatingValueLabel {
+    color: #b9cf45;
+    font-weight: 600;
+}
+
+/* --- Progress (green) --------------------------------------------------- */
+
+QGroupBox#progressMetricsGroup::title {
+    color: #73c88f;
+}
+
+QLabel#progressTargetValueLabel,
+QLabel#progressSegmentStepsValueLabel,
+QLabel#progressRemainingValueLabel,
+QLabel#progressEtaValueLabel,
+QLabel#progressSegmentTimeValueLabel {
+    color: #73c88f;
+    font-weight: 600;
+}
+
+/* --- Run info (cyan) ---------------------------------------------------- */
+
+QGroupBox#runInfoGroup::title {
+    color: #62c6cc;
+}
+
+QLabel#checkpointValueLabel,
+QLabel#deviceValueLabel,
+QLabel#runIdValueLabel,
+QLabel#obsSizeValueLabel,
+QLabel#actionCountValueLabel,
+QLabel#modelParamsValueLabel,
+QLabel#learningRateValueLabel {
+    color: #62c6cc;
+    font-weight: 600;
+}
+
+/* --- Training stats (blue) ---------------------------------------------- */
+
+QGroupBox#trainingStatsGroup::title {
+    color: #5aa9c4;
+}
+
+QLabel#totalTimestepsLabel,
+QLabel#totalIterationsLabel,
+QLabel#totalTimeValueLabel,
+QLabel#sessionTimeValueLabel {
+    color: #5aa9c4;
+    font-weight: 600;
+}
+
+/* --- Collection metrics (amber) ----------------------------------------- */
+
+QGroupBox#collectMetricsGroup::title {
+    color: #e2a84b;
+}
+
+QLabel#collectAvgRewardValueLabel,
+QLabel#collectEpisodeLengthValueLabel,
+QLabel#collectTimestepsValueLabel {
+    color: #e2a84b;
+    font-weight: 600;
+}
+
+/* --- GAE metrics (red) -------------------------------------------------- */
+
+QGroupBox#gaeMetricsGroup::title {
+    color: #e47777;
+}
+
+QLabel#gaeAvgAdvantageValueLabel,
+QLabel#gaeAvgReturnValueLabel,
+QLabel#gaeAvgTargetValueLabel,
+QLabel#gaeReturnStdValueLabel,
+QLabel#gaeRewardClipValueLabel {
+    color: #e47777;
+    font-weight: 600;
+}
+
+/* --- Loss metrics (pink) ------------------------------------------------ */
+
+QGroupBox#lossMetricsGroup::title {
+    color: #d98bbd;
+}
+
+QLabel#lossKlValueLabel,
+QLabel#lossClipValueLabel,
+QLabel#lossPolicyValueLabel,
+QLabel#lossCriticValueLabel,
+QLabel#lossEntropyValueLabel {
+    color: #d98bbd;
+    font-weight: 600;
+}
+
+/* --- Timing metrics (purple) -------------------------------------------- */
+
+QGroupBox#timingMetricsGroup::title {
+    color: #b78bd9;
+}
+
+QLabel#timingCollectionValueLabel,
+QLabel#timingConsumptionValueLabel,
+QLabel#timingInferenceValueLabel,
+QLabel#timingEnvStepValueLabel,
+QLabel#timingRewardValueLabel,
+QLabel#timingIterationValueLabel {
+    color: #b78bd9;
+    font-weight: 600;
+}
+
+/* --- Throughput metrics (cyan) ------------------------------------------ */
+
+QGroupBox#throughputMetricsGroup::title {
+    color: #62c6cc;
+}
+
+QLabel#throughputCollectionValueLabel,
+QLabel#throughputConsumptionValueLabel,
+QLabel#throughputOverallValueLabel {
+    color: #62c6cc;
+    font-weight: 600;
+}
+
+/* --- Update metrics (blue) ---------------------------------------------- */
+
+QGroupBox#updateMetricsGroup::title {
+    color: #5aa9c4;
+}
+
+QLabel#updatePolicyValueLabel,
+QLabel#updateCriticValueLabel,
+QLabel#updateSharedHeadValueLabel {
+    color: #5aa9c4;
+    font-weight: 600;
+}
+
+/* --- Console (green) ---------------------------------------------------- */
+
+QGroupBox#consoleGroup::title {
+    color: #73c88f;
+}

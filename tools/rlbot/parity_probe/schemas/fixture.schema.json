@@ -1,0 +1,595 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fixture.schema.json",
+  "title": "RocketForge parity probe fixture",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "fixture_id",
+    "sequences"
+  ],
+  "properties": {
+    "schema": {
+      "const": "rocketforge.parity.fixture.v1"
+    },
+    "producer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fixture_id": {
+      "$ref": "#/$defs/id"
+    },
+    "sequences": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/sequence"
+      }
+    },
+    "extensions": {
+      "$ref": "#/$defs/extensions"
+    }
+  },
+  "$defs": {
+    "id": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "integer"
+        }
+      ]
+    },
+    "uint32": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295
+    },
+    "uint64": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615
+    },
+    "vec3": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "number"
+      }
+    },
+    "rot_mat": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "$ref": "#/$defs/vec3"
+      }
+    },
+    "action": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {
+        "type": "number"
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Adapter-specific data. Keep machine-local extension definitions outside the public tree."
+    },
+    "physics": {
+      "type": "object",
+      "required": [
+        "pos",
+        "rot_mat",
+        "vel",
+        "ang_vel"
+      ],
+      "properties": {
+        "pos": {
+          "$ref": "#/$defs/vec3"
+        },
+        "rot_mat": {
+          "$ref": "#/$defs/rot_mat"
+        },
+        "vel": {
+          "$ref": "#/$defs/vec3"
+        },
+        "ang_vel": {
+          "$ref": "#/$defs/vec3"
+        }
+      }
+    },
+    "heatseeker": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "y_target_dir": {
+          "type": "number"
+        },
+        "current_target_speed": {
+          "type": "number"
+        },
+        "time_since_hit": {
+          "type": "number"
+        }
+      }
+    },
+    "dropshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "charge_level": {
+          "type": "integer"
+        },
+        "accumulated_hit_force": {
+          "type": "number"
+        },
+        "y_target_dir": {
+          "type": "number"
+        },
+        "has_damaged": {
+          "type": "boolean"
+        },
+        "last_damage_tick": {
+          "$ref": "#/$defs/uint64"
+        }
+      }
+    },
+    "ball": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/physics"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "tick_count_since_update": {
+              "$ref": "#/$defs/uint64"
+            },
+            "heatseeker": {
+              "$ref": "#/$defs/heatseeker"
+            },
+            "dropshot": {
+              "$ref": "#/$defs/dropshot"
+            },
+            "extensions": {
+              "$ref": "#/$defs/extensions"
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "world_contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "has_contact": {
+          "type": "boolean"
+        },
+        "normal": {
+          "$ref": "#/$defs/vec3"
+        }
+      }
+    },
+    "car_contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "other_car_id": {
+          "$ref": "#/$defs/uint32"
+        },
+        "cooldown_timer": {
+          "type": "number"
+        }
+      }
+    },
+    "ball_hit_info": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "is_valid": {
+          "type": "boolean"
+        },
+        "relative_pos_on_ball": {
+          "$ref": "#/$defs/vec3"
+        },
+        "ball_pos": {
+          "$ref": "#/$defs/vec3"
+        },
+        "extra_hit_vel": {
+          "$ref": "#/$defs/vec3"
+        },
+        "tick_count_when_hit": {
+          "$ref": "#/$defs/uint64"
+        },
+        "tick_count_when_extra_impulse_applied": {
+          "$ref": "#/$defs/uint64"
+        }
+      }
+    },
+    "event_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "goal": {
+          "type": "boolean"
+        },
+        "save": {
+          "type": "boolean"
+        },
+        "assist": {
+          "type": "boolean"
+        },
+        "shot": {
+          "type": "boolean"
+        },
+        "shot_pass": {
+          "type": "boolean"
+        },
+        "bump": {
+          "type": "boolean"
+        },
+        "bumped": {
+          "type": "boolean"
+        },
+        "demo": {
+          "type": "boolean"
+        },
+        "demoed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "player": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/physics"
+        },
+        {
+          "type": "object",
+          "required": [
+            "car_id",
+            "team"
+          ],
+          "properties": {
+            "index": {
+              "type": "integer"
+            },
+            "car_id": {
+              "$ref": "#/$defs/uint32"
+            },
+            "team": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "enum": ["blue", "orange"]
+                },
+                {
+                  "type": "integer",
+                  "enum": [0, 1]
+                }
+              ]
+            },
+            "tick_count_since_update": {
+              "$ref": "#/$defs/uint64"
+            },
+            "is_on_ground": {
+              "type": "boolean"
+            },
+            "was_on_ground_during_step": {
+              "type": "boolean"
+            },
+            "ground_contact_grace_used": {
+              "type": "boolean"
+            },
+            "obs_on_ground": {
+              "type": "boolean"
+            },
+            "wheels_with_contact": {
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 4,
+              "items": {
+                "type": "boolean"
+              }
+            },
+            "has_jumped": {
+              "type": "boolean"
+            },
+            "has_double_jumped": {
+              "type": "boolean"
+            },
+            "has_flipped": {
+              "type": "boolean"
+            },
+            "flip_rel_torque": {
+              "$ref": "#/$defs/vec3"
+            },
+            "jump_time": {
+              "type": "number"
+            },
+            "flip_time": {
+              "type": "number"
+            },
+            "is_flipping": {
+              "type": "boolean"
+            },
+            "is_jumping": {
+              "type": "boolean"
+            },
+            "air_time": {
+              "type": "number"
+            },
+            "air_time_since_jump": {
+              "type": "number"
+            },
+            "boost": {
+              "type": "number"
+            },
+            "time_since_boosted": {
+              "type": "number"
+            },
+            "is_boosting": {
+              "type": "boolean"
+            },
+            "boosting_time": {
+              "type": "number"
+            },
+            "is_supersonic": {
+              "type": "boolean"
+            },
+            "supersonic_time": {
+              "type": "number"
+            },
+            "handbrake_value": {
+              "type": "number"
+            },
+            "is_auto_flipping": {
+              "type": "boolean"
+            },
+            "auto_flip_timer": {
+              "type": "number"
+            },
+            "auto_flip_torque_scale": {
+              "type": "number"
+            },
+            "is_demoed": {
+              "type": "boolean"
+            },
+            "demo_respawn_timer": {
+              "type": "number"
+            },
+            "ball_touched_step": {
+              "type": "boolean"
+            },
+            "ball_touched_tick": {
+              "type": "boolean"
+            },
+            "prev_action": {
+              "$ref": "#/$defs/action"
+            },
+            "air_state": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 255
+            },
+            "has_dodged": {
+              "type": "boolean"
+            },
+            "dodge_timeout": {
+              "type": "number"
+            },
+            "demolished_timeout": {
+              "type": "number"
+            },
+            "world_contact": {
+              "$ref": "#/$defs/world_contact"
+            },
+            "car_contact": {
+              "$ref": "#/$defs/car_contact"
+            },
+            "last_controls": {
+              "$ref": "#/$defs/action"
+            },
+            "jump_reset_block_ticks": {
+              "type": "integer"
+            },
+            "ball_hit_info": {
+              "$ref": "#/$defs/ball_hit_info"
+            },
+            "event_state": {
+              "$ref": "#/$defs/event_state"
+            },
+            "extensions": {
+              "$ref": "#/$defs/extensions"
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "state": {
+      "type": "object",
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "game_mode": {
+                "enum": ["hoops", 1]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "boost_pads": {
+                "minItems": 20,
+                "maxItems": 20
+              },
+              "boost_pad_timers": {
+                "minItems": 20,
+                "maxItems": 20
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "boost_pads": {
+                "minItems": 34,
+                "maxItems": 34
+              },
+              "boost_pad_timers": {
+                "minItems": 34,
+                "maxItems": 34
+              }
+            }
+          }
+        }
+      ],
+      "required": [
+        "game_mode",
+        "ball",
+        "boost_pads",
+        "boost_pad_timers",
+        "players"
+      ],
+      "properties": {
+        "game_mode": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "soccar",
+                "hoops",
+                "heatseeker",
+                "snowday",
+                "dropshot",
+                "void"
+              ]
+            },
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
+            }
+          ]
+        },
+        "delta_time": {
+          "type": "number"
+        },
+        "goal_scored": {
+          "type": "boolean"
+        },
+        "last_touch_car_id": {
+          "type": "integer",
+          "minimum": -1
+        },
+        "last_tick_count": {
+          "$ref": "#/$defs/uint64"
+        },
+        "ball": {
+          "$ref": "#/$defs/ball"
+        },
+        "ball_prediction": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ball"
+          }
+        },
+        "boost_pads": {
+          "type": "array",
+          "items": {
+            "type": "boolean"
+          }
+        },
+        "boost_pad_timers": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "players": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/player"
+          }
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "applied_action": {
+          "$ref": "#/$defs/action"
+        }
+      }
+    },
+    "frame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "frame_id",
+        "target_car_id",
+        "obs_rng_seed",
+        "state"
+      ],
+      "properties": {
+        "frame_id": {
+          "$ref": "#/$defs/id"
+        },
+        "target_car_id": {
+          "$ref": "#/$defs/uint32"
+        },
+        "obs_rng_seed": {
+          "$ref": "#/$defs/uint64"
+        },
+        "reset_obs_builder": {
+          "type": "boolean"
+        },
+        "state": {
+          "$ref": "#/$defs/state"
+        },
+        "runtime": {
+          "$ref": "#/$defs/runtime"
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      }
+    },
+    "sequence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sequence_id",
+        "frames"
+      ],
+      "properties": {
+        "sequence_id": {
+          "$ref": "#/$defs/id"
+        },
+        "frames": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/frame"
+          }
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      }
+    }
+  }
+}

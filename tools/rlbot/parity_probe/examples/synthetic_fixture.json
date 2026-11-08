@@ -1,0 +1,169 @@
+{
+  "schema": "rocketforge.parity.fixture.v1",
+  "producer": "synthetic-example",
+  "fixture_id": "synthetic-asymmetric-state",
+  "sequences": [
+    {
+      "sequence_id": "single-frame",
+      "frames": [
+        {
+          "frame_id": "grounded-asymmetric",
+          "target_car_id": 101,
+          "obs_rng_seed": 1337,
+          "reset_obs_builder": true,
+          "state": {
+            "game_mode": "soccar",
+            "delta_time": 0.06666667,
+            "goal_scored": false,
+            "last_touch_car_id": 202,
+            "last_tick_count": 240,
+            "ball": {
+              "pos": [123.0, -456.0, 321.0],
+              "rot_mat": [
+                [1.0, 0.0, 0.0],
+                [0.0, 1.0, 0.0],
+                [0.0, 0.0, 1.0]
+              ],
+              "vel": [700.0, -250.0, 110.0],
+              "ang_vel": [0.1, -0.2, 0.3],
+              "tick_count_since_update": 240
+            },
+            "ball_prediction": [
+              {
+                "pos": [169.0, -472.0, 326.0],
+                "rot_mat": [
+                  [1.0, 0.0, 0.0],
+                  [0.0, 1.0, 0.0],
+                  [0.0, 0.0, 1.0]
+                ],
+                "vel": [690.0, -240.0, 90.0],
+                "ang_vel": [0.1, -0.2, 0.3],
+                "tick_count_since_update": 248
+              }
+            ],
+            "boost_pads": [
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            "boost_pad_timers": [
+              0.0,
+              0.125,
+              0.25,
+              0.375,
+              0.5,
+              0.625,
+              0.75,
+              0.875,
+              1.0,
+              1.125,
+              1.25,
+              1.375,
+              1.5,
+              1.625,
+              1.75,
+              1.875,
+              2.0,
+              2.125,
+              2.25,
+              2.375,
+              2.5,
+              2.625,
+              2.75,
+              2.875,
+              3.0,
+              3.125,
+              3.25,
+              3.375,
+              3.5,
+              3.625,
+              3.75,
+              3.875,
+              4.0,
+              4.125
+            ],
+            "players": [
+              {
+                "index": 0,
+                "car_id": 101,
+                "team": "blue",
+                "pos": [-900.0, -1800.0, 17.0],
+                "rot_mat": [
+                  [0.0, 1.0, 0.0],
+                  [-1.0, 0.0, 0.0],
+                  [0.0, 0.0, 1.0]
+                ],
+                "vel": [400.0, 800.0, 0.0],
+                "ang_vel": [0.0, 0.0, 0.5],
+                "is_on_ground": true,
+                "was_on_ground_during_step": true,
+                "obs_on_ground": true,
+                "wheels_with_contact": [true, true, true, true],
+                "boost": 0.42,
+                "prev_action": [1.0, -0.5, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0],
+                "last_controls": [1.0, -0.5, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0]
+              },
+              {
+                "index": 1,
+                "car_id": 202,
+                "team": "orange",
+                "pos": [1200.0, 2200.0, 450.0],
+                "rot_mat": [
+                  [0.0, -1.0, 0.0],
+                  [1.0, 0.0, 0.0],
+                  [0.0, 0.0, 1.0]
+                ],
+                "vel": [-300.0, -600.0, 120.0],
+                "ang_vel": [0.2, 0.1, -0.4],
+                "is_on_ground": false,
+                "was_on_ground_during_step": false,
+                "obs_on_ground": false,
+                "wheels_with_contact": [false, false, false, false],
+                "has_jumped": true,
+                "is_jumping": true,
+                "air_time": 0.35,
+                "air_time_since_jump": 0.28,
+                "boost": 0.17,
+                "prev_action": [0.4, 0.25, -0.5, 0.5, 0.0, 1.0, 0.0, 0.0]
+              }
+            ]
+          },
+          "runtime": {
+            "applied_action": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,408 @@
+{
+    "agent": "example-agent",
+    "agent_setup": {
+        "action_delay": 7,
+        "action_parser": "DefaultAction",
+        "activation_type": 0,
+        "add_layer_norm": true,
+        "agent_name": "example-agent",
+        "ball_pred_tick_rate": 0.0,
+        "car_config": "Octane",
+        "critic": {
+            "activation_type": 0,
+            "add_layer_norm": true,
+            "add_output_layer": true,
+            "layer_sizes": [
+                256,
+                256,
+                256
+            ],
+            "optim_type": 0
+        },
+        "game_mode": 0,
+        "max_team_size": 1,
+        "obs_builder": "AdvancedObs",
+        "optim_type": 0,
+        "policy": {
+            "activation_type": 0,
+            "add_layer_norm": true,
+            "add_output_layer": true,
+            "layer_sizes": [
+                256,
+                256,
+                256
+            ],
+            "optim_type": 0
+        },
+        "shared_head": {
+            "activation_type": 0,
+            "add_layer_norm": true,
+            "add_output_layer": false,
+            "layer_sizes": [
+                256,
+                256
+            ],
+            "optim_type": 0
+        },
+        "tick_skip": 8,
+        "use_ball_prediction": false
+    },
+    "hyperparameters": [
+        {
+            "group": "Versioning",
+            "name": "Agent",
+            "value": "example-agent"
+        },
+        {
+            "group": "Versioning",
+            "name": "Stage",
+            "value": "example-ball-chase"
+        },
+        {
+            "group": "Versioning",
+            "name": "Version ID",
+            "value": "v1.00"
+        },
+        {
+            "group": "Versioning",
+            "name": "Saved At",
+            "value": "20260620-125538"
+        },
+        {
+            "group": "Versioning",
+            "name": "Run Name",
+            "value": "ball-chase-v1.00"
+        },
+        {
+            "group": "Environment",
+            "name": "Games",
+            "value": "256"
+        },
+        {
+            "group": "Environment",
+            "name": "Tick Skip",
+            "value": "8"
+        },
+        {
+            "group": "Environment",
+            "name": "Action Delay",
+            "value": "7"
+        },
+        {
+            "group": "Environment",
+            "name": "Team Sizes",
+            "value": "1v1 x1"
+        },
+        {
+            "group": "Training",
+            "name": "Algorithm",
+            "value": "PPO"
+        },
+        {
+            "group": "Training",
+            "name": "Timesteps / Iteration",
+            "value": "50000"
+        },
+        {
+            "group": "Training",
+            "name": "Batch Size",
+            "value": "50000"
+        },
+        {
+            "group": "Training",
+            "name": "Micro Batch Size",
+            "value": "50000"
+        },
+        {
+            "group": "Training",
+            "name": "Epochs",
+            "value": "2"
+        },
+        {
+            "group": "Training",
+            "name": "Random Seed",
+            "value": "123"
+        },
+        {
+            "group": "Training",
+            "name": "Learning Rate",
+            "value": "0.00015"
+        },
+        {
+            "group": "Training",
+            "name": "Policy LR",
+            "value": "0.00015"
+        },
+        {
+            "group": "Training",
+            "name": "Critic LR",
+            "value": "0.00015"
+        },
+        {
+            "group": "Training",
+            "name": "Entropy Scale",
+            "value": "0.02"
+        },
+        {
+            "group": "Training",
+            "name": "GAE Gamma",
+            "value": "0.99"
+        },
+        {
+            "group": "Training",
+            "name": "GAE Lambda",
+            "value": "0.95"
+        },
+        {
+            "group": "Training",
+            "name": "Clip Range",
+            "value": "0.2"
+        },
+        {
+            "group": "Training",
+            "name": "Reward Clip Range",
+            "value": "10"
+        },
+        {
+            "group": "Training",
+            "name": "Policy Temperature",
+            "value": "1"
+        },
+        {
+            "group": "Training",
+            "name": "Min Action Probability",
+            "value": "0.0001"
+        },
+        {
+            "group": "Training",
+            "name": "Mask Entropy",
+            "value": "false"
+        },
+        {
+            "group": "Training",
+            "name": "Deterministic",
+            "value": "false"
+        },
+        {
+            "group": "Training",
+            "name": "Use Half Precision",
+            "value": "false"
+        },
+        {
+            "group": "Training",
+            "name": "Overbatching",
+            "value": "true"
+        },
+        {
+            "group": "Training",
+            "name": "Max Episode Duration",
+            "value": "120"
+        },
+        {
+            "group": "Schedules",
+            "name": "PPO/Entropy Scale Target",
+            "value": "0.02"
+        },
+        {
+            "group": "Schedules",
+            "name": "PPO/Entropy Scale Amplitude",
+            "value": "0.01"
+        },
+        {
+            "group": "Schedules",
+            "name": "PPO/Entropy Scale Min",
+            "value": "0.01"
+        },
+        {
+            "group": "Schedules",
+            "name": "PPO/Entropy Scale Max",
+            "value": "0.03"
+        },
+        {
+            "group": "Schedules",
+            "name": "PPO/Entropy Scale Period Timesteps",
+            "value": "10000000"
+        },
+        {
+            "group": "Saving",
+            "name": "Timesteps / Save",
+            "value": "25000000"
+        },
+        {
+            "group": "Saving",
+            "name": "Timesteps / Version",
+            "value": "25000000"
+        },
+        {
+            "group": "Saving",
+            "name": "Checkpoints To Keep",
+            "value": "8"
+        },
+        {
+            "group": "Saving",
+            "name": "Save Policy Versions",
+            "value": "false"
+        },
+        {
+            "group": "Saving",
+            "name": "Max Recent Versions",
+            "value": "32"
+        },
+        {
+            "group": "Saving",
+            "name": "Train Against Recent Versions",
+            "value": "false"
+        },
+        {
+            "group": "Saving",
+            "name": "Train Against Recent Chance",
+            "value": "0.15"
+        },
+        {
+            "group": "Saving",
+            "name": "Train Against Static Opponents",
+            "value": "false"
+        },
+        {
+            "group": "Saving",
+            "name": "Train Against Static Opponent Chance",
+            "value": "0.2"
+        },
+        {
+            "group": "Saving",
+            "name": "Train Against Static Opponent Arena Percent",
+            "value": "0.5"
+        },
+        {
+            "group": "Saving",
+            "name": "Reset Run ID On Load",
+            "value": "false"
+        },
+        {
+            "group": "Saving",
+            "name": "Warm Start Policy",
+            "value": "true"
+        },
+        {
+            "group": "Saving",
+            "name": "Warm Start Iterations",
+            "value": "20"
+        },
+        {
+            "group": "Saving",
+            "name": "Warm Start Policy LR Multiplier",
+            "value": "0.1"
+        },
+        {
+            "group": "Saving",
+            "name": "Static Opponent Count",
+            "value": "0"
+        },
+        {
+            "group": "Metrics",
+            "name": "Send Metrics",
+            "value": "false"
+        },
+        {
+            "group": "Metrics",
+            "name": "Project Name",
+            "value": "example-agent"
+        },
+        {
+            "group": "Metrics",
+            "name": "Group Name",
+            "value": "ExampleBuild"
+        },
+        {
+            "group": "Metrics",
+            "name": "Run Name",
+            "value": "ExampleBuild - v1.00 - example-ball-chase"
+        },
+        {
+            "group": "Metrics",
+            "name": "Skill Tracker Enabled",
+            "value": "false"
+        },
+        {
+            "group": "Metrics",
+            "name": "Add Rewards To Metrics",
+            "value": "true"
+        },
+        {
+            "group": "Normalization",
+            "name": "Standardize Obs",
+            "value": "false"
+        },
+        {
+            "group": "Normalization",
+            "name": "Standardize Returns",
+            "value": "true"
+        },
+        {
+            "group": "Normalization",
+            "name": "Min Obs STD",
+            "value": "0.1"
+        },
+        {
+            "group": "Normalization",
+            "name": "Max Obs Mean Range",
+            "value": "3"
+        },
+        {
+            "group": "Normalization",
+            "name": "Max Obs Samples",
+            "value": "100"
+        },
+        {
+            "group": "Normalization",
+            "name": "Max Return Samples",
+            "value": "150"
+        }
+    ],
+    "rewards": [
+        {
+            "category": "event",
+            "effective_max": 50.0,
+            "name": "TouchBallReward",
+            "range": {
+                "max": 1.0,
+                "min": 0.0
+            },
+            "weight": 50.0
+        },
+        {
+            "category": "continuous",
+            "effective_max": 5.0,
+            "name": "VelocityPlayerToBallReward",
+            "range": {
+                "max": 1.0,
+                "min": -1.0
+            },
+            "weight": 5.0
+        },
+        {
+            "category": "continuous",
+            "effective_max": 0.15000000596046448,
+            "name": "AirReward",
+            "range": {
+                "max": 1.0,
+                "min": 0.0
+            },
+            "weight": 0.15000000596046448
+        },
+        {
+            "category": "continuous",
+            "effective_max": 1.0,
+            "name": "FaceBallReward",
+            "range": {
+                "max": 1.0,
+                "min": -1.0
+            },
+            "weight": 1.0
+        }
+    ],
+    "saved_at": "20260620-125538",
+    "schema_version": 1,
+    "stage": "example-ball-chase",
+    "version_id": "v1.00"
+}

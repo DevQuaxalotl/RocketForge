@@ -1,0 +1,91 @@
+diff --git a/library/BotManager.cpp b/library/BotManager.cpp
+index dafa03d..77b390a 100755
+--- a/library/BotManager.cpp
++++ b/library/BotManager.cpp
+@@ -129,7 +129,7 @@ void BotManagerImpl::spawnBots () noexcept
+ 
+ 		if (batchHivemind)
+ 		{
+-			if (!name.empty ())
++			if (name.empty ())
+ 				name = customBot->name ()->str ();
+ 			continue; // defer bot creation
+ 		}
+@@ -155,7 +155,7 @@ void BotManagerImpl::spawnBots () noexcept
+ 		connection.sendSetLoadout (std::move (loadoutMessage));
+ 	}
+ 
+-	if (batchHivemind)
++	if (batchHivemind && !botIndices.empty ())
+ 	{
+ 		auto bot = spawn (botIndices, team, std::move (name));
+ 
+diff --git a/library/Client.cpp b/library/Client.cpp
+index 0b16ddc..7e2de07 100644
+--- a/library/Client.cpp
++++ b/library/Client.cpp
+@@ -43,6 +43,7 @@ rlbot::flat::InterfacePacketT buildInterfacePacket (T &&packet_) noexcept
+ class rlbot::detail::ClientImpl
+ {
+ public:
++	Client::PacketObserver packetObserver;
+ 	~ClientImpl () noexcept;
+ 
+ 	/// @brief Request service thread to terminate
+@@ -581,6 +582,12 @@ void Client::join () noexcept
+ 	m_impl->join ();
+ }
+ 
++void Client::setPacketObserver(PacketObserver observer)
++{
++	assert(!connected());
++	m_impl->packetObserver = std::move(observer);
++}
++
+ void Client::sendInterfacePacket (rlbot::flat::InterfacePacketT const &packet_) noexcept
+ {
+ 	auto fbb = m_impl->fbbPool->getObject ();
+@@ -607,6 +614,8 @@ void Client::sendInterfacePacket (rlbot::flat::InterfacePacketT const &packet_)
+ 	{
+ 		auto lock          = std::unique_lock (m_impl->writerMutex);
+ 		m_impl->writerIdle = false;
++		if (m_impl->packetObserver)
++			m_impl->packetObserver(true, {fbb->GetBufferPointer(), size});
+ 		m_impl->outputQueue.emplace_back (std::move (buffer));
+ 
+ 		if (m_impl->outputQueue.size () == 1)
+@@ -970,6 +979,9 @@ void Client::handleRead (std::size_t count_) noexcept
+ 			break;
+ 		}
+ 
++		// Observe before BotManager replaces a worker's pending packet with a newer one.
++		if (m_impl->packetObserver)
++			m_impl->packetObserver(false, message.span().subspan(Message::HEADER_SIZE));
+ 		handleMessage (message);
+ 
+ 		m_impl->inStartOffset += size;
+diff --git a/library/include/rlbot/Client.h b/library/include/rlbot/Client.h
+index 1406c4f..64d6e16 100644
+--- a/library/include/rlbot/Client.h
++++ b/library/include/rlbot/Client.h
+@@ -6,6 +6,8 @@
+ #include <interfacepacket_generated.h>
+ 
+ #include <memory>
++#include <functional>
++#include <span>
+ 
+ namespace rlbot
+ {
+@@ -18,6 +20,11 @@ class Message;
+ class RLBotCPP_API Client
+ {
+ public:
++	/** Borrowed wire payload; outgoing means queued for transport, not consumed by the game. **/
++	using PacketObserver = std::function<void(bool, std::span<const std::uint8_t>)>;
++	/** Set before connect; callbacks may run concurrently and must not throw or block on disk. **/
++	void setPacketObserver(PacketObserver observer);
++
+ 	virtual ~Client () noexcept;
+ 
+ 	Client () noexcept;

@@ -1,0 +1,14 @@
+/build-support/libtorch/local/include/
+/build-support/libtorch/local/lib/
+/build-support/libtorch/local/build-version
+/bob_build/
+/build-linux/
+/build-win/
+!/build-support/
+!/build-support/libtorch/
+!/build-support/libtorch/README.md
+/out/
+__pycache__/
+
+# Local diagnostic recordings
+*.rfcapture

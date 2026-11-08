@@ -1,0 +1,7 @@
+[submodule "RLBot/inc/cpp-interface"]
+	path = RLBot/inc/cpp-interface
+	url = https://github.com/RLBot/cpp-interface/
+[submodule "ForgeTraining/RLGym/RocketSimV3/upstream"]
+	path = ForgeTraining/RLGym/RocketSimV3/upstream
+	url = https://github.com/ZealanL/RocketSim.git
+	branch = v3-rust

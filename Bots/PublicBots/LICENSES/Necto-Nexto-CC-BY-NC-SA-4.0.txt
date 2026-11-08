@@ -1,0 +1,12 @@
+Necto and Nexto are licensed under the Creative Commons
+Attribution-NonCommercial-ShareAlike 4.0 International license.
+
+Original source and license:
+https://github.com/RLBot/RLBotPack/tree/0033a98d4e060670f334f60f7f8dc5ee21ba93bb/RLBotPack/Necto
+
+License text:
+https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+
+This RocketForge integration modifies the runtime representation and ports the
+published Python observation/action code to C++. Those changes are identified
+in the repository history and remain subject to CC BY-NC-SA 4.0.
